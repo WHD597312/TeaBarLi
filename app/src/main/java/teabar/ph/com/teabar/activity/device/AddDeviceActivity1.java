@@ -410,8 +410,8 @@ public class AddDeviceActivity1 extends BaseActivity implements  EasyPermissions
      * 播放Gif动画
      * */
     int duration = 0;
-    int gif[] = {R.drawable.adddevice1,R.drawable.adddevice2};
-    int gif1[] = {R.drawable.enadddevice1,R.drawable.enadddevice2};
+    int gif[] = {R.mipmap.adddevice1,R.mipmap.adddevice2};
+    int gif1[] = {R.mipmap.enadddevice1,R.mipmap.enadddevice2};
     public void playGif1(final int i){
         int mygif[] ;
         if (application.IsEnglish()==0){

@@ -124,11 +124,13 @@ public class AddPurchaseActivity extends BaseActivity {
             planHolder.tv_desc.setText(describe);
             int flag=plan.getFlag();
             if (flag==1){
-                planHolder.tv_add.setBackground(getResources().getDrawable(R.drawable.answer_buttonlv));
-                planHolder.tv_add.setTextColor(getResources().getColor(R.color.nomal_green));
-            }else {
                 planHolder.tv_add.setBackground(getResources().getDrawable(R.drawable.answer_button2));
                 planHolder.tv_add.setTextColor(getResources().getColor(R.color.color_gray));
+                planHolder.tv_add.setText(getString(R.string.added));
+            }else {
+                planHolder.tv_add.setBackground(getResources().getDrawable(R.drawable.answer_buttonlv));
+                planHolder.tv_add.setTextColor(getResources().getColor(R.color.nomal_green));
+                planHolder.tv_add.setText(getString(R.string.add));
             }
 
             planHolder.tv_add.setOnClickListener(new View.OnClickListener() {

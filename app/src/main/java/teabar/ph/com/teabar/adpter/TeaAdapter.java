@@ -38,8 +38,9 @@ public class TeaAdapter extends RecyclerView.Adapter<TeaAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder,  int i) {
         String headImg = mDatas.get(i).getTeaPicture();
+
         myViewHolder.tv_mail_name .setText(mDatas.get(i).getProductNameEn());
 
 

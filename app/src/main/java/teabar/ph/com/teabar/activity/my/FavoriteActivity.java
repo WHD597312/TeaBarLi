@@ -74,6 +74,7 @@ public class FavoriteActivity extends BaseActivity {
         new getFavoriteTeaAsynctask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -97,6 +98,7 @@ public class FavoriteActivity extends BaseActivity {
             String result =   HttpUtils.getOkHpptRequest(HttpUtils.ipAddress+"/app/getCollectTea?userId="+userId );
             Log.e("back", "--->" + result);
             if (!ToastUtil.isEmpty(result)) {
+
                 if (!"4000".equals(result)){
                     try {
 
@@ -112,6 +114,10 @@ public class FavoriteActivity extends BaseActivity {
                                 Tea tea = gson.fromJson(jsonArray.get(i).toString(),Tea.class);
                                 list.add(tea);
                             }
+                        }else if ("400".equals(code)){
+                            list.clear();
+                            returnMsg1=jsonObject.getString("message2");
+                            returnMsg2=jsonObject.getString("message3");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -131,7 +137,14 @@ public class FavoriteActivity extends BaseActivity {
 
                 case "200":
                 favoriteAdpter.setmData(list);
-
+                break;
+                case "400":
+                    favoriteAdpter.setmData(list);
+                    if (application.IsEnglish()==0){
+                        toast(returnMsg1);
+                    }else {
+                        toast(returnMsg2);
+                    }
                     break;
                 case "4000":
                     ToastUtil.showShort(FavoriteActivity.this, getText(R.string.toast_all_cs).toString());

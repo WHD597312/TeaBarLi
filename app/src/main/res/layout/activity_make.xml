@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_make_pic"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="23dp"
         android:layout_marginRight="20dp"
         android:includeFontPadding="false"
         android:layout_toLeftOf="@+id/iv_make_love"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_make_style"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="21dp"
         android:includeFontPadding="false"
         android:layout_toLeftOf="@+id/iv_make_love"
@@ -74,17 +74,30 @@
         android:layout_marginRight="24dp"
         />
     <TextView
+        android:id="@+id/tv_tea_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#777777"
+        android:textSize="14sp"
+        android:layout_below="@+id/tv_make_name"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
         android:id="@+id/tv_mes_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tea_kouwei_kw"
-        android:layout_below="@+id/tv_make_name"
-        android:layout_marginRight="15dp"
+        android:layout_below="@+id/tv_tea_desc"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginRight="15dp"
+        android:text="@string/tea_kouwei_kw"
         android:textColor="#454545"
-        android:textSize="16sp"
-        />
+        android:textSize="16sp" />
     <TextView
         android:id="@+id/tv_make_mes"
         android:layout_width="wrap_content"

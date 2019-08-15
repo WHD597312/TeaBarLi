@@ -104,7 +104,6 @@
                 android:layout_marginLeft="20dp"
                 android:textSize="18sp"
                 />
-
             <TextView
                 android:id="@+id/tv_buy_td"
                 android:layout_width="wrap_content"
@@ -124,7 +123,8 @@
             android:background="@color/white"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,7 +138,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rl_plan_tea"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                />
 
         </LinearLayout>
         <RelativeLayout
@@ -146,17 +148,15 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_marginTop="11dp"
-            android:paddingBottom="70dp"
             >
 
             <TextView
                 android:id="@+id/tv_buy_name"
-                android:layout_below="@+id/tv_buy_yy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dr.W. Christopher Winter"
                 android:textColor="#454545"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginLeft="20dp"
                 android:textSize="17sp"
                 />
@@ -165,14 +165,14 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@mipmap/my_pic"
-                android:layout_alignTop="@+id/tv_buy_yy"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="18dp"
+                android:layout_marginTop="45dp"
                 />
 
             <TextView
                 android:id="@+id/tv_buy_js"
-                android:layout_below="@+id/tv_buy_name"
+                android:layout_below="@+id/iv_buy_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dr.W. Christopher Winter是美国睡眠医学委员会和美国内科学委员会认证的睡眠医学委员会成员，也是美国精神病学和神经病学委员会认证的神经学委员会成员。他是夏洛茨维尔神经和睡眠医学公司的老板，也是玛莎·杰斐逊医院睡眠医学中心的医疗主任。他目前的研究重点是睡眠和运动表现，"

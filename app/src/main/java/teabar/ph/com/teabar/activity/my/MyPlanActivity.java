@@ -119,8 +119,8 @@ public class MyPlanActivity extends BaseActivity {
                 new UpdatePlanTimeAsync(MyPlanActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,planParams);
             }
         });
-        planDialog.setCanceledOnTouchOutside(false);
-        backgroundAlpha(0.6f);
+        planDialog.setCanceledOnTouchOutside(true);
+        backgroundAlpha(0.8f);
 
         planDialog.show();
         planDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

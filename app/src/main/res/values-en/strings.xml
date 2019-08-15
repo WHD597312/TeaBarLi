@@ -94,9 +94,9 @@
 
 
     <string name="toast_equ_mr">The current device is the default device</string>
-    <string name="equ_add_wifimes1">1. First, make sure your device is powered on.</string>
-    <string name="equ_add_wifimes2">2. Then press and hold the front button for 5 seconds until the front panel LED lighting starts blinking.</string>
-    <string name="equ_add_wifimes3">3. Enter Wi-Fi name and password.If is a 5GHz only network, please switch to a different network.</string>
+    <string name="equ_add_wifimes1">1.Make sure your mobile device wifi is on and connected to a 2.4Ghz network. (If it is a 5GHz only network, please switch to a different network)</string>
+    <string name="equ_add_wifimes2">2.Make sure you enter the Wi-Fi password correctly.</string>
+    <string name="equ_add_wifimes3">3.3.Try moving your brewer closer to the Wi-Fi router.</string>
     <string name="equ_add_wifimes5">4. Press PAIR NOW.</string>
     <string name="equ_xq_mrequ">Default Device</string>
     <string name="equ_xq_mrequ1">Confirm Default Device</string>

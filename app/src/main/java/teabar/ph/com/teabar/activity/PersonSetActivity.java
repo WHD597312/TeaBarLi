@@ -54,6 +54,7 @@ import teabar.ph.com.teabar.adpter.PersonAskAdapter;
 import teabar.ph.com.teabar.base.BaseActivity;
 import teabar.ph.com.teabar.base.BaseWeakAsyncTask;
 import teabar.ph.com.teabar.base.MyApplication;
+import teabar.ph.com.teabar.fragment.MainFragment3;
 import teabar.ph.com.teabar.pojo.Adress;
 import teabar.ph.com.teabar.pojo.examOptions;
 import teabar.ph.com.teabar.util.DisplayUtil;
@@ -494,6 +495,10 @@ public class PersonSetActivity extends BaseActivity {
                     if (tipDialog!=null&&tipDialog.isShowing()){
                         tipDialog.dismiss();
                     }
+                    String city=tv_base_xxdz.getText().toString();
+                    if (!TextUtils.isEmpty(city) && !city.equals(MainFragment3.city)){
+                        MainFragment3.city="";
+                    }
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("userName",et_person_name.getText().toString().trim());
                     editor.commit();
@@ -524,7 +529,7 @@ public class PersonSetActivity extends BaseActivity {
             String code = "";
             Map<String,Object> param = maps[0];
             String result = HttpUtils.postOkHpptRequest(HttpUtils.ipAddress+"/api/selectUserBasic",param);
-            Log.e(TAG, "doInBackground: -->"+result );
+            Log.e("BaseActivity", "FindMessAsynctask: -->"+result );
             if (!TextUtils.isEmpty(result)){
                 if (!"4000".equals(result)){
                     try {

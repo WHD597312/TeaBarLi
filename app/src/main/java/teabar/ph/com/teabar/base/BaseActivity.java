@@ -51,7 +51,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     private boolean isDebug;
     private String APP_NAME;
     FriendInforImpl friendInforDao;
-    protected final String TAG = this.getClass().getSimpleName();
+    protected final String TAG = "BaseActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public abstract class BaseActivity extends FragmentActivity implements
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
             initView(mContextView);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             friendInforDao= new FriendInforImpl(getApplicationContext());
             doBusiness(this);
 

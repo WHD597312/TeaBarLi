@@ -109,6 +109,8 @@ public class MakeActivity extends BaseActivity {
     TextView tv_mes_title;
     @BindView(R.id.tv_plmes_title)
     TextView tv_plmes_title;
+    @BindView(R.id.tv_tea_desc)
+    TextView tv_tea_desc;
     private boolean MQBound;
     MyApplication application;
     EquipmentImpl equipmentDao;//數據庫設備表管理者
@@ -562,7 +564,6 @@ public class MakeActivity extends BaseActivity {
                 intent.putExtra("tea",tea);
                 startActivityForResult(intent,200);
                 break;
-
             case R.id.bt_make_make:
                 if (equpments.size()>0) {
 //                    if (equpments.size()>1) {
@@ -629,6 +630,7 @@ public class MakeActivity extends BaseActivity {
         //点击空白处时，隐藏掉pop窗口
         popupWindow1.setFocusable(true);
         popupWindow1.setOutsideTouchable(true);
+        popupWindow1.update();
         //添加弹出、弹入的动画
         popupWindow1.setAnimationStyle(R.style.Popupwindow);
         popupWindow1.showAtLocation(view, Gravity.BOTTOM, 0,0);
@@ -641,6 +643,17 @@ public class MakeActivity extends BaseActivity {
 
         View.OnClickListener listener = new View.OnClickListener() {
             public void onClick(View v) {
+                String teaName;
+                String shareContent;
+                if (MyApplication.IsEnglish==1){
+                    teaName=tea.getTeaNameEn();
+                    shareContent=tea.getSynopsisEn();
+                }else {
+                    teaName=tea.getTeaNameCn();
+                    shareContent=tea.getSynopsisCn();
+                }
+
+                shareContent=shareContent+"\n"+"https://play.google.com/store/apps/details?id=teabar.ph.com.teabar";
                 switch (v.getId()) {
 
                     case R.id.rl_mode_1:
@@ -648,7 +661,8 @@ public class MakeActivity extends BaseActivity {
                         //获取剪贴板管理器：
                         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         // 创建普通字符型ClipData
-                        ClipData mClipData = ClipData.newRawUri("Lify Wellness",Uri.parse("https://play.google.com/store/apps/details?id=teabar.ph.com.teabar"));
+
+                        ClipData mClipData = ClipData.newRawUri(teaName,Uri.parse(shareContent));
                         // 将ClipData内容放到系统剪贴板里。
                         cm.setPrimaryClip(mClipData);
                         toast(getText(R.string.equ_xq_cg).toString());
@@ -674,8 +688,8 @@ public class MakeActivity extends BaseActivity {
                         Intent email = new Intent(Intent.ACTION_SEND);
                         email.setType("message/rfc822");
                         email.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-                        email.putExtra(Intent.EXTRA_SUBJECT,    "Lify Wellness");
-                        email.putExtra(Intent.EXTRA_TEXT   , "https://play.google.com/store/apps/details?id=teabar.ph.com.teabar");
+                        email.putExtra(Intent.EXTRA_SUBJECT,    teaName);
+                        email.putExtra(Intent.EXTRA_TEXT   , shareContent);
                         startActivity(Intent.createChooser(email, getString(R.string.share)));
                         popupWindow1.dismiss();
 
@@ -687,8 +701,8 @@ public class MakeActivity extends BaseActivity {
                             ShareLinkContent linkContent = new ShareLinkContent.Builder()
 //                    "https://lify-wellness.myshopify.com/collections/all"
                                     .setContentUrl(Uri.parse(tea.getTeaPhoto()))
-                                    .setShareHashtag(new ShareHashtag.Builder().setHashtag("#Lify Wellness").build())
-                                    .setQuote("https://play.google.com/store/apps/details?id=teabar.ph.com.teabar")
+                                    .setShareHashtag(new ShareHashtag.Builder().setHashtag("#"+teaName).build())
+                                    .setQuote(shareContent)
                                     .build();
 
                             shareDialog.show(linkContent);
@@ -697,7 +711,7 @@ public class MakeActivity extends BaseActivity {
                         break;
                     case R.id.rl_mode_4:
                         if (isContainPackName(MakeActivity.this,"com.whatsapp")){
-                            shareAudioRecord(MakeActivity.this,new Intent(),"https://play.google.com/store/apps/details?id=teabar.ph.com.teabar");
+                            shareAudioRecord(MakeActivity.this,new Intent(),teaName+"\n"+shareContent);
                         }else {
                             ToastUtil.showShort(MakeActivity.this,MakeActivity.this.getString(R.string.no_find_whatsapp));
                         }
@@ -958,13 +972,16 @@ public class MakeActivity extends BaseActivity {
                     }
                     if (application.IsEnglish()==1){
                         tv_make_name.setText(tea.getTeaNameEn());
-                        tv_make_style.setText(tea.getProductNameEn());
-                        tv_toast_mes.setText(tea.getTasteEn());
+                        tv_tea_desc.setText(tea.getAccountEn());
+                        tv_make_mes.setText(tea.getTasteEn());
+                        tv_toast_mes.setText(tea.getSynopsisEn());
                     }else {
                         tv_make_name.setText(tea.getTeaNameCn());
-                        tv_make_style.setText(tea.getProductNameCn());
-                        tv_toast_mes.setText(tea.getTasteCn());
+                        tv_tea_desc.setText(tea.getAccountCn());
+                        tv_make_mes.setText(tea.getTasteCn());
+                        tv_toast_mes.setText(tea.getSynopsisCn());
                     }
+                    tv_make_style.setText(tea.getProductNameEn());
                     tv_make_plmes.setText (tea.getIngredientEn());
                     tv_make_temp.setText(tea.getTemperature()+"℃");
                     tv_make_sl.setText(tea.getWaterYield()+"ml");

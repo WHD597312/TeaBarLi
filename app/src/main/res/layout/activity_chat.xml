@@ -80,6 +80,7 @@
                     android:scrollbarStyle="outsideOverlay"
                     android:scrollingCache="false"
                     android:smoothScrollbar="true"
+                    android:overScrollMode="never"
                     android:transcriptMode="normal"/>
 
                 <Button

@@ -39,7 +39,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:networkSecurityConfig">
-        <activity android:name=".activity.my.AddPurchaseActivity"></activity>
+        <activity android:name=".activity.my.AddPurchaseActivity"/>
         <!-- <uses-library android:name="org.apache.http.legacy" android:required="false"/> -->
         <!-- tools:replace="android:name" -->
         <!--

@@ -18,6 +18,7 @@ import java.util.List;
 
 import teabar.ph.com.teabar.R;
 import teabar.ph.com.teabar.activity.BuyPlanActivity;
+import teabar.ph.com.teabar.base.MyApplication;
 import teabar.ph.com.teabar.pojo.Plan;
 import teabar.ph.com.teabar.view.PlanProgressBar;
 
@@ -81,8 +82,13 @@ public class MyplanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof MyViewHolder2) {
             String headImg = mDatas.get(position).getPlanPhoto();
             String s = mContext.getText(R.string.weather_week).toString() ;
-            final String title = mDatas.get(position).getPlanNameEn();
-            final String week =  mDatas.get(position).getPlanTime()+" "+s;
+             String title;
+             if (MyApplication.IsEnglish==1){
+                 title=mDatas.get(position).getPlanNameEn();
+             }else {
+                 title=mDatas.get(position).getPlanNameCn();
+             }
+             String week =  mDatas.get(position).getPlanTime()+" "+s;
             ((MyViewHolder2) holder).tv_health_name .setText(title);
             ((MyViewHolder2) holder).tv_health_mes .setText(mDatas.get(position).getDescribeEn());
             Glide.with(mContext).load(headImg).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.color.white).into(((MyViewHolder2) holder).iv_plan_pic);

@@ -84,16 +84,26 @@ public class BuyPlanActivity extends BaseActivity {
         if (plan!=null){
 
             Glide.with(this).load(plan.getPlanPhoto()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.color.white).into( iv_buy_head);
-            tv_buy_des.setText(plan.getDescribeEn());
-            tv_buy_about.setText(plan.getAboutEn());
-            tv_buy_td.setText(plan.getFeaturesEn());
-            tv_buy_js.setText(plan.getDietitianDescribeEn());
-            tv_buy_name.setText(plan.getDietitianEn());
+            if (MyApplication.IsEnglish==1){
+                tv_buy_des.setText(plan.getDescribeEn());
+                tv_buy_about.setText(plan.getAboutEn());
+                tv_buy_td.setText(plan.getFeaturesEn());
+                tv_buy_js.setText(plan.getDietitianDescribeEn());
+                tv_buy_name.setText(plan.getDietitianEn());
+            }else {
+                tv_buy_des.setText(plan.getDescribeCn());
+                tv_buy_about.setText(plan.getAboutCn());
+                tv_buy_td.setText(plan.getFeaturesCn());
+                tv_buy_js.setText(plan.getDietitianDescribeCn());
+                tv_buy_name.setText(plan.getDietitianCn());
+            }
+
             tv_buy_planname.setText(title);
             tv_buy_week.setText(week);
             Glide.with(this).load(plan.getDietitianPhoto()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.my_pic).transform(new GlideCircleTransform(this)).into(iv_buy_pic);
 
             LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             teaList=plan.getTeaList();
             for (Tea tea:teaList){
                 shopIds.add(tea.getShopId());

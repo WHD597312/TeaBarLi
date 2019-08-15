@@ -19,6 +19,8 @@ public class Tea implements Serializable {
     String tasteCn;
     String tasteEn;
     String teaPhoto;
+    String accountCn;
+    String accountEn;
     String rgb;
     String shopId;
     int temperature;//温度
@@ -26,6 +28,22 @@ public class Tea implements Serializable {
     int waterYield;//体积
     boolean love ;
     int isCollection;
+
+    public String getAccountCn() {
+        return accountCn;
+    }
+
+    public void setAccountCn(String accountCn) {
+        this.accountCn = accountCn;
+    }
+
+    public String getAccountEn() {
+        return accountEn;
+    }
+
+    public void setAccountEn(String accountEn) {
+        this.accountEn = accountEn;
+    }
 
     public long getId() {
         return id;

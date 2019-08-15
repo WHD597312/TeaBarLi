@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/login_encourage"
+    android:background="@mipmap/img_guide2"
     >
     <TextView
         android:id="@+id/encourage_tv_day"

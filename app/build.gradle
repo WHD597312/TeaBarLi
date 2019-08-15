@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.application'
 greendao {
-    schemaVersion 8
+    schemaVersion 9
     daoPackage 'com.ph.teabar.database.dao'
     targetGenDir 'src/main/java'
 }
@@ -16,6 +16,12 @@ android {
             storePassword '123456'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
 
@@ -25,8 +31,8 @@ android {
         applicationId "teabar.ph.com.teabar"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.2.7"
+        versionCode 10
+        versionName "1.2.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {

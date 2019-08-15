@@ -45,6 +45,7 @@ public class MyApplication extends Application {
     public static List<UserInfo> unRead = new ArrayList<>();
     public static List<Message> ids = new ArrayList<>();
     public static int IsEnglish;
+
     public static Context getContext(){
         return mContext;
 

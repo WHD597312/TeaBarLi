@@ -32,8 +32,11 @@ import com.ph.teabar.database.dao.DaoImp.EquipmentImpl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,11 +122,16 @@ public class MainFragment3 extends BaseFragment  {
     EquipmentImpl equipmentDao;
     SharedPreferences preferences;
     Equpment firstEqu;//用戶第一個設備
-    String userId;
-    int language;
+    public static String userId;
+    public static String lastDay;
+    public static String lastUserId;
+    private static int lastLanguage=-1;
+
     int type1;
     Map<String,Object> map=new HashMap<>();
     Calendar mCalendar=Calendar.getInstance();
+    SimpleDateFormat dateFormat;
+
 
     @Override
     public int bindLayout() {
@@ -141,7 +149,7 @@ public class MainFragment3 extends BaseFragment  {
             getTeaListAsynTask = new  getTeaListAsynTask(this) ;//獲取茶列表
             getTeaListAsynTask .execute();
         }
-        language= ((MainActivity)getActivity()).getLanguage();
+        int language= ((MainActivity)getActivity()).getLanguage();
 //        equipmentDao = new EquipmentImpl(getActivity().getApplicationContext());
          firstEqu = ((MainActivity)getActivity()).getFirstEqument();
         if (firstEqu!=null){
@@ -158,14 +166,44 @@ public class MainFragment3 extends BaseFragment  {
         if (type1==1 && rl_main_question!=null){
             rl_main_question.setVisibility(View.GONE);
         }
+        dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String today=dateFormat.format(new Date());
+        Log.e("todayeeeeee","lastDay="+lastDay);
+        Log.e("todayeeeeee","today="+today);
+        Log.e("todayeeeeee","userId="+userId);
+        Log.e("todayeeeeee","lastUserId="+lastUserId);
+        //当上一次的日期和今天的日期相同，并且上一次的用户,地址和现在的用户相同,上一次的语言和现在的相同，就不用调用接口
+        if (!TextUtils.isEmpty(lastDay) && lastDay.equals(today) && (!TextUtils.isEmpty(lastUserId)) && lastUserId.equals(userId)&& !TextUtils.isEmpty(city) && language==lastLanguage){
+            if (weathers.size()==3){
+                Log.e("todayeeeeee","-->使用原始数据");
+                Weather weather = weathers.get(0);
+                tv_weather_wd.setText(weather.getTem()+"℃");
+                tv_weather_sd.setText(weather.getHumidity()+"%");
+                tv_weather_tq.setText(weather.getWea());
+                tv_weather_day.setText(weather.getWeek());
+                if (!TextUtils.isEmpty(city)){
+                    Log.e("todayeeeeee","-->使用原始城市");
+                    tv_weather_place.setText(city);
+                }
+            }
+            if (tv_weather_project!=null&&tv_weather_name!=null) {
+                Log.e("todayeeeeee","-->使用原始茶");
+                tv_weather_project.setText(tea1.getProductNameEn());
+                tv_weather_name.setText(tea1.getTeaNameEn());
+            }
+        }else {
+            Log.e("todayeeeeee","-->调用接口");
+            map.put("userId",userId);
+            new GetWeaterAsynce(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,map);
+        }
         //刷新默认设备
         RefrashFirstEqu1();
 
         //获取数据
 
         initView1();
-        map.put("userId",userId);
-        new GetWeaterAsynce(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,map);
+
+
         getAnswerNumAsynTask = new getAnswerNumAsynTask(this) ;
         getAnswerNumAsynTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         //绑定services
@@ -552,7 +590,7 @@ public class MainFragment3 extends BaseFragment  {
         }
 
     }
-    String city;
+    public static String city;
     class GetWeaterAsynce extends BaseWeakAsyncTask<Map<String,Object>,Void,Integer,BaseFragment>{
 
         public GetWeaterAsynce(BaseFragment baseFragment) {
@@ -582,10 +620,22 @@ public class MainFragment3 extends BaseFragment  {
                             nextWeek=1;
                             ht=2;
                         }
-                        String mDay=year+"-"+month+"-"+day+",";
-                        String tod=mDay+getString(Utils.getWeek(week));
-                        String tom=mDay+getString(Utils.getWeek(nextWeek));
-                        String mHt=mDay+getString(Utils.getWeek(ht));
+                        if (ht>7){
+                            ht=1;
+                        }
+                        lastLanguage=MyApplication.IsEnglish;
+                        Calendar calendar= new GregorianCalendar();
+                        calendar.setTime(new Date());
+                        String today=dateFormat.format(calendar.getTime());
+                        lastDay=today;
+                        lastUserId=userId;
+                        calendar.add(Calendar.DATE,1);
+                        String tomorrow=dateFormat.format(calendar.getTime())+",";
+                        calendar.add(Calendar.DATE,2);
+                        String sht=dateFormat.format(calendar.getTime())+",";
+                        String tod=today+","+getString(Utils.getWeek(week));
+                        String tom=tomorrow+getString(Utils.getWeek(nextWeek));
+                        String mHt=sht+getString(Utils.getWeek(ht));
 
 
                         JSONObject data=jsonObject.getJSONObject("data1");
@@ -593,12 +643,12 @@ public class MainFragment3 extends BaseFragment  {
                         String weatheren=data.getString("weatheren");
                         String weather=data.getString("weather");
                         String temperature=data.getString("temperature");
-                        JSONObject data2=jsonObject.getJSONObject("data1");
+                        JSONObject data2=jsonObject.getJSONObject("data2");
                         String hum2=data2.getString("hum");
                         String weatheren2=data2.getString("weatheren");
                         String weather2=data2.getString("weather");
                         String temperature2=data2.getString("temperature");
-                        JSONObject data3=jsonObject.getJSONObject("data1");
+                        JSONObject data3=jsonObject.getJSONObject("data3");
                         String hum3=data3.getString("hum");
                         String weatheren3=data3.getString("weatheren");
                         String weather3=data3.getString("weather");
@@ -644,7 +694,7 @@ public class MainFragment3 extends BaseFragment  {
     }
     //添加天气预报图
 
-    List<Weather> weathers = new ArrayList<>();
+    public static List<Weather> weathers = new ArrayList<>();
     /*  获取天气预报*/
 //    searchWeatherAsynTask  searchWeatherAsynTask ;
 //    class searchWeatherAsynTask extends BaseWeakAsyncTask<Void,Void,String,BaseFragment> {
@@ -795,9 +845,9 @@ public class MainFragment3 extends BaseFragment  {
     }
 
     //根据天气选择不同的来区分的三种茶 具体看FindWeatherAsynTask这个任务的功能来获取这三种茶
-    Tea tea1 = new Tea();
-    Tea tea2 = new Tea();
-    Tea tea3 = new Tea();
+    public static Tea tea1 = new Tea();
+    public static Tea tea2 = new Tea();
+    public static Tea tea3 = new Tea();
 
     /**
      * 獲取星期幾
