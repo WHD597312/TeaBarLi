@@ -346,7 +346,7 @@
     <!--tea-->
     <string name="tea_kouwei_cb">草本口味</string>
     <string name="tea_kouwei_sg">水果口味</string>
-    <string name="tea_kouwei_gn">功能茶</string>
+    <string name="tea_kouwei_gn">東方養生系列</string>
     <string name="tea_kouwei_tj">推薦茶</string>
     <string name="tea_kouwei_tjti">推薦结果</string>
     <string name="tea_kouwei_tjti1">根據你的健康數據，我們為你推薦：</string>

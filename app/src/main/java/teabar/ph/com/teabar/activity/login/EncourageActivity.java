@@ -55,7 +55,7 @@ public class EncourageActivity extends BaseActivity {
         }
         application.addActivity(this);
         preferences = getSharedPreferences("my",MODE_PRIVATE);
-        language = application.IsEnglish();
+        language = MyApplication.IsEnglish;
         new GetwebAsyncTask(this).execute();
         new GetEncourageAsyncTask(this).execute();
         Calendar c = Calendar.getInstance();
@@ -138,8 +138,11 @@ public class EncourageActivity extends BaseActivity {
         protected String doInBackground(BaseActivity baseActivity, Void... voids) {
             String code ="";
             String result = HttpUtils.getOkHpptRequest(HttpUtils.ipAddress+"/app/encouraging?type="+language);
+            Log.i("language","-->"+language);
+
             if (!TextUtils.isEmpty(result)){
                 try {
+                    Log.i("language","-->"+result);
                     JSONObject jsonObject = new JSONObject(result);
                     code = jsonObject.getString("state");
                     message1 = jsonObject .getString("message1");
